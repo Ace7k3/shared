@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
+#include <fstream>
 
 namespace Shared {
 
@@ -14,15 +15,18 @@ namespace Shared {
 
 		public:
 
-			inline void start_timing_step(const std::string label, const std::string description)
+			inline void start_timing_step(const std::string label, const std::string description, std::ostream* output = nullptr)
 			{
 				if(_timers.find(label) != _timers.end())
 					throw std::logic_error("Tried to start timer with existing label again");
 
 				_timers.insert({ label, { description, std::chrono::steady_clock::now() } });
+
+				if(output != nullptr)
+					*output << "Begin: " << description << std::endl;
 			}
 
-			inline void stop_timing_step(const std::string label)
+			inline void stop_timing_step(const std::string label, std::ostream* output = nullptr)
 			{
 				auto it = _timers.find(label);
 				if(it == _timers.end())
@@ -31,6 +35,9 @@ namespace Shared {
 				auto endTime = std::chrono::steady_clock::now();
 				auto diff = std::chrono::duration<double, std::milli>(endTime-it->second.second).count();
 				_finished_timings.push_back({ it->second.first, diff });
+
+				if(output != nullptr)
+					*output << "End: " << it->second.first << std::endl;
 
 				_timers.erase(it);
 			}
