@@ -9,7 +9,7 @@ namespace Shared
 	{
 		public:
 
-			inline HtmlSerializer(std::ostream& ostr, bool startEmpty)
+			inline HtmlSerializer(std::ostream& ostr, bool startEmpty = false)
 				:XmlSerializer(ostr),
 				_isClosed(false)
 		{
