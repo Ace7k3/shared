@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 
 namespace Shared {
 
@@ -16,7 +17,11 @@ namespace Shared {
 			else std::cout << " ";
 		}
 		std::cout << "] ";
-		std::cout << std::setw(5) << std::fixed << std::setprecision(1) << percentage << " %";
+
+		std::stringstream ss;
+
+		ss << std::setw(5) << std::fixed << std::setprecision(1) << percentage << " %";
+		std::cout << ss.str();
 		std::cout << "\r"; // set carriage return
 		std::cout.flush();
 	}
