@@ -37,7 +37,7 @@ namespace Shared {
 				_finished_timings.push_back({ it->second.first, diff });
 
 				if(output != nullptr)
-					*output << "End: " << it->second.first << std::endl;
+					*output << "End: " << it->second.first << "\t (" << timing_to_readable(_finished_timings.back().second) << ")" << std::endl;
 
 				_timers.erase(it);
 			}
