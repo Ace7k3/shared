@@ -4,7 +4,7 @@
 
 namespace Shared {
 
-	inline void cli_progress_bar(std::size_t i_progress, std::size_t n, std::size_t bar_width = 90)
+	inline void cli_progress_bar(std::size_t i_progress, std::size_t n, std::string additional_msg = "", std::size_t bar_width = 90)
 	{
 		double ratio = static_cast<double>(i_progress) / n;
 		double percentage = 100 * ratio;
@@ -22,6 +22,7 @@ namespace Shared {
 
 		ss << std::setw(5) << std::fixed << std::setprecision(1) << percentage << " %";
 		std::cout << ss.str();
+		std::cout << " " << additional_msg;
 		std::cout << "\r"; // set carriage return
 		std::cout.flush();
 	}
